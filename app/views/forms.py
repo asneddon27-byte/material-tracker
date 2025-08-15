@@ -16,15 +16,16 @@ def get_db():
     finally:
         db.close()
 
+# ----------------- PROJECT ROUTES -----------------
+
 @router.post("/projects", response_class=HTMLResponse)
 def create_project_html(
     request: Request,
     name: str = Form(...),
-    location: str = Form(None),
-    status: str = Form("active"),
+    description: str = Form(None),
     db: Session = Depends(get_db)
 ):
-    project_data = schemas.ProjectCreate(name=name, location=location, status=status)
+    project_data = schemas.ProjectCreate(name=name, description=description)
     crud.create_project(db, project_data)
     projects = crud.get_projects(db)
     return templates.TemplateResponse("partials/project_list.html", {"request": request, "projects": projects})
@@ -33,3 +34,24 @@ def create_project_html(
 def view_projects(request: Request, db: Session = Depends(get_db)):
     projects = crud.get_projects(db)
     return templates.TemplateResponse("projects.html", {"request": request, "projects": projects})
+
+# ----------------- MATERIAL ROUTES -----------------
+
+@router.post("/materials", response_class=HTMLResponse)
+def create_material_html(
+    request: Request,
+    name: str = Form(...),
+    unit: str = Form(...),
+    category: str = Form(None),
+    db: Session = Depends(get_db)
+):
+    material_data = schemas.MaterialCreate(name=name, unit=unit, category=category)
+    crud.create_material(db, material_data)
+    materials = crud.get_materials(db)
+    return templates.TemplateResponse("partials/material_list.html", {"request": request, "materials": materials})
+
+@router.get("/materials", response_class=HTMLResponse)
+def view_materials(request: Request, db: Session = Depends(get_db)):
+    materials = crud.get_materials(db)
+    return templates.TemplateResponse("materials.html", {"request": request, "materials": materials})
+
