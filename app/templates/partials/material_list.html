@@ -1,0 +1,10 @@
+
+<ul class="list-group">
+    {% for material in materials %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>
+            <strong>{{ material.name }}</strong> — {{ material.unit }} ({{ material.category or "Uncategorized" }})
+        </span>
+    </li>
+    {% endfor %}
+</ul>

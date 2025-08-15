@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Materials</h2>
+
+<form hx-post="/materials" hx-target="#material-list" class="mb-4">
+    <div class="row g-2">
+        <div class="col">
+            <input type="text" name="name" class="form-control" placeholder="Material Name" required>
+        </div>
+        <div class="col">
+            <input type="text" name="unit" class="form-control" placeholder="Unit (e.g. kg, pcs)" required>
+        </div>
+        <div class="col">
+            <input type="text" name="category" class="form-control" placeholder="Category">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="submit">Add Material</button>
+        </div>
+    </div>
+</form>
+
+<div id="material-list">
+    {% include "partials/material_list.html" %}
+</div>
+{% endblock %}
