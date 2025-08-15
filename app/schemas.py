@@ -10,6 +10,12 @@ class ProjectBase(BaseModel):
 class ProjectCreate(ProjectBase):
     pass
 
+
+class ProjectUpdate(BaseModel):
+    name: Optional[str] = None
+    location: Optional[str] = None
+    status: Optional[str] = None
+
 class Project(ProjectBase):
     id: int
     class Config:
@@ -22,6 +28,12 @@ class MaterialBase(BaseModel):
 
 class MaterialCreate(MaterialBase):
     pass
+
+
+class MaterialUpdate(BaseModel):
+    name: Optional[str] = None
+    unit: Optional[str] = None
+    category: Optional[str] = None
 
 class Material(MaterialBase):
     id: int
@@ -37,6 +49,14 @@ class StockEntryBase(BaseModel):
 
 class StockEntryCreate(StockEntryBase):
     pass
+
+
+class StockEntryUpdate(BaseModel):
+    project_id: Optional[int] = None
+    material_id: Optional[int] = None
+    quantity: Optional[float] = None
+    entry_type: Optional[str] = None
+    notes: Optional[str] = None
 
 class StockEntry(StockEntryBase):
     id: int
